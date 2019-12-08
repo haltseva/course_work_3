@@ -1,0 +1,27 @@
+
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="main_block">
+    <div class="right_part">
+        <p>Каталог</p>
+    </div>
+    <div class="main_part">
+            <div class="popular">
+                    {% for product in products %}
+                    
+                        <div class="product">
+                            <a class="link_white" href="{{ url_for('prod', ProductID = product.ProductID|string) }}">
+                            <figure>
+                                <p><img src="{{ url_for('static', filename='img/product/' + product.ProductID|string + '.png') }}" alt="помады" width="220px"></p>
+                                <figcaption style="margin: 0 15%; color: black;"><b>{{product.NameProduct }}</b><br>{{product.Price}} грн</figcaption>
+                            </figure></a>
+                        </div>
+                        
+                    {% endfor %}
+            </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="main_block">
+    <div style="width: 50%;">
+            <p style="text-align: center;"><img class="prod_img" src="{{ url_for('static', filename='img/product/color/' + color_choose|string + '.png') }}" alt="помады"></p>
+    </div>
+    <div style="width: 50%;">
+        <p class="prod_name">{{product[0].NameProduct}}</p>
+        <b class="pink">{{product[0].Price}} грн</b>
+        <div class="color_list">
+        {% for color in colors %}
+        {% if color.ColorID==color_choose %}
+        <div id="chosen" > 
+        {% else %}  
+        <div class="colors"> {% endif %}
+            <a  class="link_white" href="{{ url_for('prod', ProductID=product[0].ProductID , color = color.ColorID|string) }}">
+            <img  src="{{ url_for('static', filename='img/product/color/' + color.ColorID|string + '.png') }}" width="100%"></a>
+        </div>
+        {% endfor %}
+        </div>
+        {% for color in colors %} 
+        {% if color.ColorID==color_choose %}
+        <p>ЦВЕТ: {{color.Name}}</p> {% else %}{% endif %}
+        {% endfor %}
+        <!-- <select>
+            {% for color in colors %} 
+            <option value="{{color.ColorID}}">{{color.Name}}</option>
+            {% endfor %}
+        </select> -->
+        <form width=100%>
+            <p><input type="submit" style="width: 100%; " value="КУПИТЬ"></p>
+        </form> 
+        <p style="margin-top: 50px">ОПИСАНИЕ</p>    
+        <p style="font-size: 14px;">{{product[0].Description}}</p>
+    </div>
+
+</div>
+
+{% endblock %}

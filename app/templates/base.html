@@ -1,0 +1,143 @@
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - microblog</title>
+        {% else %}
+        <title>microblog</title>
+        {% endif %}
+        <link href="/static/style/main.css" rel="stylesheet">
+        <link href="/static/style/heder.css" rel="stylesheet">
+        <link href="/static/style/footer.css" rel="stylesheet">
+        <link href="/static/style/form.css" rel="stylesheet">
+        <link href="/static/style/catalog.css" rel="stylesheet">
+        {% block head %}{% endblock %}
+    </head>
+    <body>
+        <header class="black">
+        
+            <div class="container">
+                <div class="h_row">
+                <div class="h_col1_1"><p class="pink">БЕСПЛАТНАЯ ДОСТАВКА <b>ПРИ ЗАКАЗЕ ОТ 700 ГРН</b></p></div>
+                <div class="h_col1_2">
+                    {% if current_user.is_anonymous %}
+                    <p><a href="{{ url_for('login') }}" >Войти|Pегестрация</a></p>
+                    {% else %}
+                    <p>{{ current_user.FirstName }} |<a href="{{ url_for('logout') }}">Выйти</a></p>
+                    {% endif %}
+                </div> 
+                </div>
+                <div class="h_row">
+                <div class="h_col2_1">
+                    <p ><b>+38 (044) 233-25-88</b> <a class="pink">   ОБРАТНЫЙ ЗВОНОК</a><br>
+                    <b>+38 (063) 233-25-88</b> <a id="tooltip" href="#">ГРАФИК РАБОТЫ<span>ПН-ПТ С 9:00 ДО 18:30</span></a></p>
+                </div>
+                <div class="h_col2_2">
+                        <a href="{{ url_for('index') }}"><img src="https://nyxcosmetic.com.ua/skin/nyx/images/logo.png" width="60%"></a>
+                </div>
+                <div class="h_col2_3">
+                    <form>
+                        <p><input  type="search" name="q" placeholder="Поиск по сайту"> 
+                        <input type="image" src="static/img/search.png" salt="Поиск"></p>
+                    </form>
+                </div>
+                </div>
+                
+            </div>
+            
+            </div>
+                <div  style="width: 100%">
+                <nav class="menu_list">
+                    
+                    <ul id="my-drop-down-menu">
+                        <li class="list"><a href="#pop">ПОПУЛЯРНОЕ</a></li>
+                        <li><a href="{{ url_for('catalog', start='LIP') }}">ГУБЫ</a>
+                            <ul class="submenu">
+                            <li><a  href="{{ url_for('catalog', start='LIP01') }}">ПОМАДЫ</a></li>
+                            <li><a  href="{{ url_for('catalog', start='LIP02') }}">БЛЕСКИ ДЛЯ ГУБ</a></li>
+                            <li><a  href="{{ url_for('catalog', start='LIP03') }}">КАРАНДАШИ ДЛЯ ГУБ</a></li>
+                            <li><a  href="{{ url_for('catalog', start='LIP04') }}">УХОД ДЛЯ ГУБ</a></li>
+                            </ul>
+                        </li>
+                        <li class="list"><a href="{{ url_for('catalog', start='F') }}">ЛИЦО</a>
+                            <ul class="submenu">
+                            <li><a  href="{{ url_for('catalog', start='F01') }}">ПУДРЫ</a></li>
+                            <li><a  href="{{ url_for('catalog', start='F02') }}">ТОНАЛЬНЫЕ ОСНОВЫ</a></li>
+                            <li><a  href="{{ url_for('catalog', start='F03') }}">РУМЯНА И БРОНЗЕРЫ</a></li>
+                            <li><a  href="{{ url_for('catalog', start='F04') }}">КОРЕКТОРЫ ДЛЯ ЛИЦА</a></li>
+                            <li><a  href="{{ url_for('catalog', start='F05') }}">ХАЙЛАЙТЕРЫ</a></li>
+                            </ul>
+                        </li>
+                        <li class="list"><a href="{{ url_for('catalog', start='EYE') }}">ГЛАЗА</a>
+                            <ul class="submenu">
+                            <li><a  href="{{ url_for('catalog', start='EYE01') }}">ТЕНИ ДЛЯ ВЕК</a></li>
+                            <li><a  href="{{ url_for('catalog', start='EYE02') }}">ТУШЬ ДЛЯ РЕСТНИЦ</a></li>
+                            <li><a  href="{{ url_for('catalog', start='EYE03') }}">ПОДВОДКИ ДЛЯ ГЛАЗ</a></li>
+                            <li><a  href="{{ url_for('catalog', start='EYE04') }}">КАРАНДАШИ ДЛЯ ГЛАЗ</a></li>
+                            <li><a  href="{{ url_for('catalog', start='EYE05') }}">СРЕДСТВА ДЛЯ БРОВЕЙ</a></li>
+                            </ul>
+                        </li>
+                        <li class="list"><a href="https://www.google.com.ua/?hl=ru">АКСЕССУАРЫ И ПРОЧЕЕ</a>
+                            <ul class="submenu">
+                                <li><a  href="#">КИСТИ</a></li>
+                                <li><a  href="#">СРЕДСТВА ДЛЯ ТЕЛА</a></li>
+                                <li><a  href="#">ПОДАРОЧНЫЕ НАБОРЫ</a></li>
+    
+                            </ul>
+                            </li>
+                        <li id="pink"><a href=#>ГДЕ КУПИТЬ?</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        
+        <main>
+            <!-- {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %} -->
+            {% block content %}{% endblock %}
+
+        </main>
+        
+
+    	<div class="black">
+            <div style="height: 15px"></div>
+    		
+            <hr style="color: #ffffff;clear: both;">
+
+        	<div class="foot-wrapper">
+                <div class="foot1">
+                    <div style="padding: 20px 5%">
+                        <p>ПОДПИШИТЕСЬ НА НОВОСТИ</p>
+                        <form>
+                            <p><input style=" border: 2px solid #DF0174; height: 30px" type="input" name="q" placeholder="Ваш Email"> 
+                            <input type="submit" value="Вперед"></p>
+                        </form>       
+                    </div>
+                </div>
+                <div class="foot2">
+                    <ul class="foot-list">
+                        <li><a href="">КОНТАКТЫ</a></li>
+                        <li><a href="">НАШИ МАГАЗИНЫ</a></li>
+                        <li><a href="">ВИЗАЖИСТАМ</a></li>
+                        <li><a href="">ОПЛАТА И ДОСТАВКА</a></li>
+                    </ul>
+                    <ul class="foot-list">
+                        <li><a href="">НОВИНКИ</a></li>
+                        <li><a href="">ВОЗВРАТ</a></li>
+                        <li><a href="">MAKEUP CLUB</a></li>
+                        <li><a href="">СОТРУДНИЧЕСТВО</a></li>
+                    </ul>
+                </div>
+            </div>
+    		
+            <hr style="color: #ffffff;clear: both;">
+            <div style="height: 15px"></div>
+    	</div>
+    </body>
+</html>

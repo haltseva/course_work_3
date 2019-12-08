@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+  
+    <div >
+        <div>
+            <img id="slider" src="static/img/slider.jpg">
+        </div> 
+        <div class="main_">  
+        <h2 id="pop"><a name="pop"></a>ПОПУЛЯРНОЕ</h2>
+        <hr style="color:#837f7f;clear: both;">
+        <div class="popular">
+            <figure>
+                <p><img src="static/img/BLG_main4.jpg" alt="помады1" /></p>
+                <figcaption><b>БЛЕСК ДЛЯ ГУБ<br> BUTTER LIP GLOSS (BLG)</b><br>
+                289 грн</figcaption>
+            </figure>
+            <figure>
+                <p><img src="static/img/SMLC-Main-2018Ext.jpg" alt="помады1" /></p>
+                <figcaption><b>ЖИДКАЯ МАТОВАЯ ПОМАДА<br> SOFT MATTE LIP CREAM (SMLC)</b><br>
+                315 грн</figcaption>
+            </figure>
+            <figure>
+                <p><img src="static/img/LIPLI.jpg" alt="помады1" /></p>
+                <figcaption ><b>ЖИДКАЯ МАТОВАЯ ПОМАДА<br> LIP LINGERIE (LIPLI)</b><br>
+                240 грн</figcaption>
+            </figure>
+            
+        </div>
+        <p style="text-align: center;"><a style="color: #FD03A6;" href="{{ url_for('catalog', start='0') }}">Показать больше...</a></p>
+        <hr style="color:#837f7f;clear: both; margin-top: 20px;">
+        </div> 
+    </div>
+    
+{% endblock %}

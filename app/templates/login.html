@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="main_block">
+        <div class="right_part">
+                <p><a class="link_white" href="{{ url_for('register') }}">ЗРЕГЕСТРИРОВАТЬСЯ</a></p>
+                <p><a class="link_white" href="#">ПРАВИЛА ПОЛЬЗОВАТЕЛЯ</a></p>
+                
+        </div>
+        <div class="main_part">    
+            <b style="font-size: 32px;" >ВOЙТИ</b>
+            <hr style="color: #ff5fff;clear: both;">
+            <p>ВВЕДИТЕ ВАШ АДРЕС ЭЛЕКТРОННОЙ ПОЧТЫ И ПАРОЛЬ:</p>
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.email.label }}  {{ form.email(size=32) }}<br>
+                    {% for error in form.email.errors %}
+                    <span style="color:#FD03A6;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>
+                    {{ form.password.label }}   {{ form.password(size=32) }}<br>
+                    {% for error in form.password.errors %}
+                    <span style="color: #FD03A6;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+                <p>{{ form.submit() }}</p>
+            </form>
+            <p>ВЫ НЕ ЗАРЕГЕСТИРОВАНЫ? <a href="{{ url_for('register') }}" >ЗРЕГЕСТРИРОВАТЬСЯ</a></p>
+        </div>
+    </div>
+{% endblock %}

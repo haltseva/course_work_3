@@ -1,0 +1,37 @@
+.foot-wrapper {
+	display: flex;
+	flex-flow: row nowrap;
+	width: 100%;
+}
+  
+.nav_foot{
+font-size: 10px;
+}
+
+.foot1{
+width: 50%;  
+text-align: center;
+margin-top: 20px;
+}
+.foot2{
+width: 50%;
+display: flex;
+
+flex-flow: row nowrap;
+}
+
+.foot-list {
+list-style-type: none;
+}
+
+.foot-list a {
+text-decoration: none;
+}
+
+.foot-list li {
+padding: 10px 0;
+}
+article ::first-letter{
+font-size: 120%;
+font-weight: bolder;
+}

@@ -1,0 +1,167 @@
+* {
+	font-family: Tahoma;
+	font-style: normal;
+	font-size: 18px;
+  }
+  
+  body {
+	background-color: #000000;
+  }
+  
+  
+  a{
+	  text-decoration: none;
+  }
+  
+  .pink{
+	color: #FD03A6
+  }
+
+  #tooltip{
+	color: #FD03A6;
+}
+
+#tooltip span {
+	display			: none; 
+	padding			: 5px; 
+	margin-left		: 8px; 
+	
+	font-weight: bold;
+	
+}
+#tooltip:hover span {
+	display			: inline-block; 
+	position		: absolute; 
+	margin-top: 30px;
+	margin-left: -150px;
+	background		: #ffffff; 
+	font-size: 12 px;
+	color			:#000000;
+}
+#tooltip:hover #tooltip {
+	text-decoration: #FD03A6;
+}
+  
+#slider{
+width: 100%; 
+
+
+}
+main{
+background-color: #FFFFFF;
+
+}
+
+.main_{
+	margin: 0 10%;
+	padding: 10px 0;
+}
+
+.main_block{
+	margin: 0 10%;
+	padding: 50px 0;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-flow: row nowrap;
+	flex-flow: row nowrap;
+}
+
+#pop {
+text-align: center;
+font-size: 36px;
+}
+
+
+
+/* .link_white:hover{
+	color: #FD03A6;
+} */
+
+.link_white:visited{
+	color: #000000;
+}
+a:visited{
+	color: #FFFFFF ;
+}
+a:active{
+	color: #FFFFFF ;
+}
+a:hover{
+	color: #FD03A6 ;
+}  
+
+.text{
+	background-color: #000000;
+	color:  #FFFFFF ;
+	margin-top: 100px;
+}
+
+section{
+	clear: both; 
+	margin: 0 10%;
+}
+
+.black{
+	background-color: #000000;
+	color: white;
+}
+
+
+#pink{
+	color: #FD03A6;
+}
+#pink a{
+	color: #FD03A6;
+}
+
+
+
+
+@media only screen and (min-width: 920px) and (max-width: 1024px) {
+    * {
+        font-size: 16px;
+	}
+	#pink{
+		display: none;
+	}
+	
+}
+
+@media only screen and (min-width: 600px) and (max-width: 920px) {
+    * {
+        font-size: 16px;
+	}
+	.h_col2_2{
+		display: none;
+	}
+	#pink{
+		display: none;
+	}
+	#slider{
+		content: url(img/slider1a.jpg);
+	}
+	.popular{
+		flex-flow: column;
+	}
+	
+
+}
+@media only screen and (min-width: 400px) and (max-width: 600px) {
+    * {
+        font-size: 14px;
+	}
+	.h_col2_2{
+		display: none;
+	}
+	#pink{
+		display: none;
+	}
+	#slider{
+		content: url(img/slider1a.jpg);
+	}
+	.popular{
+		flex-flow: column;
+	}
+}
+
+

@@ -1,0 +1,31 @@
+input[type="search"]{
+	border: 2px solid #DF0174;
+	border-radius: 15px; 
+	height: 30px
+}
+
+input[type="text"]{
+    height: 50px;
+    width: 400px;
+    font-size: 24px;
+    margin-left: 42px;
+}
+
+input[type="password"]{
+    height: 50px;
+    width: 400px;
+    font-size: 24px;
+    margin-left: 25px;
+}
+
+input[type="submit"]{
+    color: #ffffff; 
+    background-color: #FD03A6; 
+    text-align: center;
+    height: 50px;
+    width: auto;
+    padding: 0 20px;
+}
+label{
+    width: 1000px;
+}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="main_block">
+    <div class="img">
+            <p style="text-align: center;"><img class="prod_img" src="{{ url_for('static', filename='img/product/color' + product.ColorID|string + '.png') }}"></p>
+    </div>
+    <div style="width: 50%;">
+        <p class="prod_name">{{product[0].NameProduct}}</p>
+        <b class="pink">{{product[0].Price}} грн</b>
+        <div class="color_list">
+        {% for color in colors %}
+        <div class="colors"> 
+        <a class="link_white" href="{{ url_for('color', ColorID = color.ColorID|string) }}">
+                <img  src="{{ url_for('static', filename='img/product/color/' + color.ColorID|string + '.png') }}"></a>
+        </div>
+        {% endfor %}
+        </div>
+        <select>
+            {% for color in colors %} 
+            <option value="{{color.ColorID}}">{{color.Name}}</option>
+            {% endfor %}
+        </select>
+        <form width=100%>
+            <p><input type="submit" style="width: 100%; " value="КУПИТЬ"></p>
+        </form> 
+        <p style="margin: 50px 0;">ОПИСАНИЕ</p>    
+        <p style="font-size: 14px;">{{product[0].Description}}</p>
+    </div>
+
+</div>
+
+{% endblock %}
