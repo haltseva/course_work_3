@@ -83,3 +83,8 @@ select{
 	width: 20%;
 	margin: 10px;
 }
+
+.main_cart{
+	margin: 0 10%;
+	padding: 50px 0;
+}

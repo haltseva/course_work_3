@@ -26,16 +26,21 @@
         {% if color.ColorID==color_choose %}
         <p>ЦВЕТ: {{color.Name}}</p> {% else %}{% endif %}
         {% endfor %}
-        <!-- <select>
-            {% for color in colors %} 
-            <option value="{{color.ColorID}}">{{color.Name}}</option>
-            {% endfor %}
-        </select> -->
-        <form width=100%>
-            <p><input type="submit" style="width: 100%; " value="КУПИТЬ"></p>
+        
+        <form action="" method="post" width=100%>
+           
+            <p>
+                {{ form.amont.label }}
+                {{ form.amont }}<br>
+            </p>
+            <p> {{form.csrf_token}}
+                {{ form.submit() }}</p>
         </form> 
         <p style="margin-top: 50px">ОПИСАНИЕ</p>    
         <p style="font-size: 14px;">{{product[0].Description}}</p>
+        <div id="addToCart">
+            <a href="/addToCart?productId={{request.args.get('productId')}}">Add to Cart</a>
+        </div>
     </div>
 
 </div>

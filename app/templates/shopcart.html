@@ -1,0 +1,29 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="main_cart" >
+	<b style="font-size: 32px; margin-bottom: 20px;" >ВАША КОРЗИНА</b>
+	<div class="list">
+		<table>
+			{% for product in products %}
+			<tr >
+				<td style="width: 10%;"><p><img src="{{ url_for('static', filename='img/product/' + product.ProductID|string + '.png') }}" width="100px"></p></td>
+				<td style="width: 50%;"><p>{{product.NameProduct}}</p>
+					<p style="font-weight:100;">ЦВЕТ: {{product.Color}}</p></td>
+				<td style="width: 20%;">Количество: {{product.Amont}}</td>
+				<td style="width: 10%;"><b>{{product.Price}} грн</b></td>
+				<td style="width: 10%; text-align: right;"><a style="text-align: right; color:  #FD03A6;" href="{{ url_for('removeFromCart', ID = product.OrdID|string) }}">Удалить</a></td>
+			</tr>
+			{% endfor %}
+		</table>
+		<hr>
+		<div>
+			<b>ИТОГО К ОПЛАТЕ: {{totalPrice}} грн</b>
+			
+		</div>
+	</div>
+</div>
+<a href="/checkout">Proceed to checkout</a>
+{% endblock %}

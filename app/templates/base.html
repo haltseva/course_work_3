@@ -24,6 +24,10 @@
                     {% else %}
                     <p>{{ current_user.FirstName }} |<a href="{{ url_for('logout') }}">Выйти</a></p>
                     {% endif %}
+                    <a class="link" href="{{ url_for('cart') }}">
+                        <img src="static/img/shoppingCart.png" id="cartIcon" width="30px" />
+                        CART
+                    </a>
                 </div> 
                 </div>
                 <div class="h_row">
@@ -91,15 +95,7 @@
         </header>
         
         <main>
-            <!-- {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <ul>
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            {% endwith %} -->
+            
             {% block content %}{% endblock %}
 
         </main>

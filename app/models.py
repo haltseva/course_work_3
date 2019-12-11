@@ -39,4 +39,18 @@ class Color(db.Model):
     def __repr__(self):
         return str({"ID": self.ColorID,"name":self.Name})
 
+class Deteis(db.Model):
+
+    __table__ = db.Model.metadata.tables['ka7603.OrdDetails']
+
+    def __repr__(self):
+        return str({"ID": self.OrdID,"name":self.ProductID})
+
+class Cart(db.Model):
+
+    __table__ = db.Model.metadata.tables['ka7603.Cart']
+
+    def __repr__(self):
+        return str({"ID": self.OrdID,"name":self.CustomerID})
+
 
