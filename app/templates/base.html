@@ -1,9 +1,9 @@
 <html>
     <head>
         {% if title %}
-        <title>{{ title }} - microblog</title>
+        <title>{{ title }} - NYX</title>
         {% else %}
-        <title>microblog</title>
+        <title>NYX</title>
         {% endif %}
         <link href="/static/style/main.css" rel="stylesheet">
         <link href="/static/style/heder.css" rel="stylesheet">
@@ -22,12 +22,12 @@
                     {% if current_user.is_anonymous %}
                     <p><a href="{{ url_for('login') }}" >Войти|Pегестрация</a></p>
                     {% else %}
-                    <p>{{ current_user.FirstName }} |<a href="{{ url_for('logout') }}">Выйти</a></p>
+                    <p><a class="link" href="{{ url_for('cart') }}">
+                            <img src="static/img/shoppingCart.png" id="cartIcon" width="25px" />
+                            
+                        </a>    {{ current_user.FirstName }} |<a href="{{ url_for('logout') }}">Выйти</a></p>
                     {% endif %}
-                    <a class="link" href="{{ url_for('cart') }}">
-                        <img src="static/img/shoppingCart.png" id="cartIcon" width="30px" />
-                        CART
-                    </a>
+                    
                 </div> 
                 </div>
                 <div class="h_row">
@@ -53,7 +53,7 @@
                 <nav class="menu_list">
                     
                     <ul id="my-drop-down-menu">
-                        <li class="list"><a href="#pop">ПОПУЛЯРНОЕ</a></li>
+                        <li class="list"><a href="{{ url_for('index') }}">ПОПУЛЯРНОЕ</a></li>
                         <li><a href="{{ url_for('catalog', start='LIP') }}">ГУБЫ</a>
                             <ul class="submenu">
                             <li><a  href="{{ url_for('catalog', start='LIP01') }}">ПОМАДЫ</a></li>

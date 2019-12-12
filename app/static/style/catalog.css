@@ -88,3 +88,15 @@ select{
 	margin: 0 10%;
 	padding: 50px 0;
 }
+.cart_total{
+	display: flex;
+	-webkit-flex-flow: row nowrap;
+	flex-flow: row nowrap;
+}
+
+td{
+	border-bottom: 1px solid rgb(85, 85, 85);
+	border-collapse: collapse;
+	color: black;
+	transition: .3s linear;
+}

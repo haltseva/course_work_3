@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="main_cart">
+        <p><b>Ваш заказ <span style="color: #FD03A6 ;">№{{MyOrd.OrdID}}</span> принят в обработку. В ближайшее время наш менеджер с Вами свяжется.</b></p>
+        
+        <table>
+            {% for product in prod %}
+            <tr>
+                <td style="width: 10%;"><p><img src="{{ url_for('static', filename='img/product/' + product.ProductID|string + '.png') }}" width="100px"></p></td>
+                <td style="width: 50%;"><p>{{product.NameProduct}}</p>
+                    <p style="font-weight:100;">ЦВЕТ: {{product.Color}}</p></td>
+                <td style="width: 20%;">Количество: {{product.Amont}}</td>
+                <td style="width: 20%;"><b>{{product.Price}} грн</b></td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+        <p style="text-align: center; margin: 50px 0;"><b>Спасибо, что выбрали нас!</b></p>
+    </div>
+{% endblock %}

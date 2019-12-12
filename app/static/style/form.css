@@ -29,3 +29,13 @@ input[type="submit"]{
 label{
     width: 1000px;
 }
+
+.div_buttom{
+    margin-top: 50px;
+    background: #FD03A6;
+    height: 50px;
+    width: 300px;
+    display: table-cell; 
+    vertical-align: middle;
+    text-align: center;
+}

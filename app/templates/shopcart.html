@@ -4,13 +4,16 @@
 {% block content %}
 
 <div class="main_cart" >
+	{% if count==0 %}
+	<b style="font-size: 32px; margin-bottom: 20px;" >ВАША КОРЗИНА ПУСТАЯ</b>
+	{% else %}
 	<b style="font-size: 32px; margin-bottom: 20px;" >ВАША КОРЗИНА</b>
 	<div class="list">
 		<table>
 			{% for product in products %}
 			<tr >
-				<td style="width: 10%;"><p><img src="{{ url_for('static', filename='img/product/' + product.ProductID|string + '.png') }}" width="100px"></p></td>
-				<td style="width: 50%;"><p>{{product.NameProduct}}</p>
+				<td style="width: 10%;"><p><a href="{{ url_for('prod', ProductID = product.ProductID|string) }}"><img src="{{ url_for('static', filename='img/product/' + product.ProductID|string + '.png') }}" width="100px"></a></p></td>
+				<td style="width: 50%;"><p><a class="link_white" href="{{ url_for('prod', ProductID = product.ProductID|string) }}">{{product.NameProduct}}</a></p>
 					<p style="font-weight:100;">ЦВЕТ: {{product.Color}}</p></td>
 				<td style="width: 20%;">Количество: {{product.Amont}}</td>
 				<td style="width: 10%;"><b>{{product.Price}} грн</b></td>
@@ -18,12 +21,13 @@
 			</tr>
 			{% endfor %}
 		</table>
-		<hr>
+		
 		<div>
-			<b>ИТОГО К ОПЛАТЕ: {{totalPrice}} грн</b>
-			
+			<b style="margin: 20px 0;">ИТОГО К ОПЛАТЕ: {{totalPrice}} грн</b>
+			<div class="div_buttom"><a style="color: white; margin: 20%;" href="{{ url_for('checkout') }}">ОФОРМИТЬ ЗАКАЗ</a></div>
 		</div>
 	</div>
+	{% endif %}
 </div>
-<a href="/checkout">Proceed to checkout</a>
+
 {% endblock %}

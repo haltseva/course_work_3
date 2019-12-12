@@ -3,13 +3,19 @@ from app import app
 from flask import render_template, flash, redirect, url_for, request
 from app.forms import LoginForm, RegistrationForm, BuyForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, db, Cart, Product
+from app.models import User, db, Cart, Product, Ord, OrdDetails
 
 
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', title='Home')
+   
+    products = db.session.execute(f'''
+        SELECT DISTINCT *
+        FROM Product
+        ORDER BY RAND() LIMIT 3
+    ''').fetchall()
+    return render_template('index.html', title='Главная', products=products)
 
 @app.route('/catalog/<start>', strict_slashes=False)
 def catalog(start):
@@ -25,7 +31,7 @@ def catalog(start):
             FROM Product
             WHERE CategorieID LIKE '{start}%' 
         ''').fetchall()
-    return render_template('catalog.html', title='Home', products=products)
+    return render_template('catalog.html', title='Каталог', products=products)
 
 
 @app.route('/prod/<ProductID>', strict_slashes=False, methods=['GET', 'POST'] )
@@ -57,37 +63,14 @@ def prod(ProductID):
     if form.validate_on_submit():
         if current_user.is_authenticated:
             UserID = current_user.cid
-            cart = Cart(CustomerID=UserID, ColorID=color_choose)
+            cart = Cart(CustomerID=UserID, ColorID=color_choose, Amont=form.amont.data)
             db.session.add(cart)
             db.session.commit()
-            flash('Congratulations, you are now a registered user!')
-            return redirect(url_for('index'))
+            return redirect(url_for('catalog', start='0'))
         else:
             return redirect(url_for('login'))
-    return render_template('prod_page.html', product=product, colors=colors, color1=color1, color_choose=color_choose, form=form)
+    return render_template('prod_page.html', product=product, title='Товар', colors=colors, color1=color1, color_choose=color_choose, form=form)
 
-@app.route("/cart",methods=['GET', 'POST'])
-def cart():
-    if current_user.is_authenticated:
-          
-        UserID = current_user.cid
-        products = db.engine.execute(f'''
-        SELECT DISTINCT o.OrdID, o.ColorId, p.NameProduct, c.Name as Color ,o.Amont, o.CustomerID,
-        o.Amont * p.Price as Price, p.ProductID
-        FROM Cart o join Color c 
-        ON (o.ColorID = c.ColorID)
-        LEFT JOIN Product p 
-        ON (p.ProductID = c.ProductID)
-        WHERE o.CustomerID='{UserID}' 
-        ''').fetchall()  
-
-        totalPrice = 0
-        for pr in products:
-            totalPrice += pr[6]
-        return render_template('shopcart.html', products=products, totalPrice=totalPrice)
-    else:
-        return redirect(url_for('login'))
-    
 
 @app.route("/removeFromCart/<ID>", strict_slashes=False, methods=['GET', 'POST'])
 def removeFromCart(ID):
@@ -106,7 +89,85 @@ def removeFromCart(ID):
         return redirect(url_for('login'))
     
 
+@app.route("/cart",methods=['GET', 'POST'])
+def cart():
+    if current_user.is_authenticated:      
+        UserID = current_user.cid
+        products = db.engine.execute(f'''
+        SELECT DISTINCT o.OrdID, o.ColorId, p.NameProduct, c.Name as Color ,o.Amont, o.CustomerID,
+        o.Amont * p.Price as Price, p.ProductID
+        FROM Cart o join Color c 
+        ON (o.ColorID = c.ColorID)
+        LEFT JOIN Product p 
+        ON (p.ProductID = c.ProductID)
+        WHERE o.CustomerID='{UserID}' 
+        ''').fetchall() 
 
+        count = db.engine.execute(f'''
+        SELECT DISTINCT o.OrdID, o.ColorId, p.NameProduct, c.Name as Color ,o.Amont, o.CustomerID,
+        o.Amont * p.Price as Price, p.ProductID
+        FROM Cart o join Color c 
+        ON (o.ColorID = c.ColorID)
+        LEFT JOIN Product p 
+        ON (p.ProductID = c.ProductID)
+        WHERE o.CustomerID='{UserID}' 
+        ''').fetchall()  
+
+        totalPrice = 0
+        count=0
+        for pr in products:
+            totalPrice += pr[6]
+            count += 1
+        return render_template('shopcart.html',title='Корзина товаров', products=products, totalPrice=totalPrice, count=count)
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/checkout',methods=['GET', 'POST'])
+def checkout():
+    UserID = current_user.cid
+    products = db.engine.execute(f'''
+    SELECT DISTINCT o.OrdID, o.ColorId, p.NameProduct, c.Name as Color ,o.Amont, o.CustomerID,
+    o.Amont * p.Price as Price, p.ProductID
+    FROM Cart o join Color c 
+    ON (o.ColorID = c.ColorID)
+    LEFT JOIN Product p 
+    ON (p.ProductID = c.ProductID)
+    WHERE o.CustomerID='{UserID}' 
+    ''').fetchall()  
+    prod = db.engine.execute(f'''
+    SELECT DISTINCT o.OrdID, o.ColorId, p.NameProduct, c.Name as Color ,o.Amont, o.CustomerID,
+    o.Amont * p.Price as Price, p.ProductID
+    FROM Cart o join Color c 
+    ON (o.ColorID = c.ColorID)
+    LEFT JOIN Product p 
+    ON (p.ProductID = c.ProductID)
+    WHERE o.CustomerID='{UserID}' 
+    ''').fetchall() 
+
+    totalPrice = 0
+    for pr in products:
+        totalPrice += pr[6]
+
+    item = Ord(CustomerID=UserID, TotalPrice=totalPrice)
+    db.session.add(item)
+    db.session.commit()
+    MyOrd=db.engine.execute(f'''
+    SELECT DISTINCT *
+    FROM Ord
+    WHERE CustomerID='{UserID}' 
+    ORDER BY OrdID desc
+    LIMIT 1
+    ''').fetchone() 
+   
+    for pr in products:
+        detail = OrdDetails(OrdID=MyOrd[0], ProductID=pr[7], Amont=pr[4], ColorID=pr[1])
+        db.session.add(detail)
+        db.session.commit()
+        item = Cart.query.filter_by(OrdID=pr[0]).first()   
+        db.session.delete(item)
+        db.session.commit()
+
+    return render_template('checkout.html', title='Потверждение заказа', prod=prod, MyOrd=MyOrd)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -120,7 +181,7 @@ def login():
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for('index'))
-    return render_template('login.html', title='Sign In', form=form)
+    return render_template('login.html', title='Войти', form=form)
 
 @app.route('/logout')
 def logout():
@@ -138,7 +199,7 @@ def register():
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register.html', title='Регистрация', form=form)
 
 
 

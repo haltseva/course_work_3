@@ -53,4 +53,16 @@ class Cart(db.Model):
     def __repr__(self):
         return str({"ID": self.OrdID,"name":self.CustomerID})
 
+class Ord(db.Model):
 
+    __table__ = db.Model.metadata.tables['ka7603.Ord']
+
+    def __repr__(self):
+        return str({"ID": self.OrdID,"name":self.CustomerID})
+
+class OrdDetails(db.Model):
+
+    __table__ = db.Model.metadata.tables['ka7603.OrdDetails']
+
+    def __repr__(self):
+        return str({"ID": self.id,"Ord":self.OrdID})

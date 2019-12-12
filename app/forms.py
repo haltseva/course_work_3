@@ -26,5 +26,3 @@ class BuyForm(FlaskForm):
     amont = IntegerField('Количество:')
     submit = SubmitField('КУПИТЬ')
 
-# class OrdForm(FlaskForm):
-#     submit = SubmitField('ОФОРМИТЬ ЗАКАЗ ')

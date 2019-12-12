@@ -31,16 +31,14 @@
            
             <p>
                 {{ form.amont.label }}
-                {{ form.amont }}<br>
+                {{ form.amont(value=1) }}<br>
             </p>
             <p> {{form.csrf_token}}
                 {{ form.submit() }}</p>
         </form> 
         <p style="margin-top: 50px">ОПИСАНИЕ</p>    
         <p style="font-size: 14px;">{{product[0].Description}}</p>
-        <div id="addToCart">
-            <a href="/addToCart?productId={{request.args.get('productId')}}">Add to Cart</a>
-        </div>
+        
     </div>
 
 </div>

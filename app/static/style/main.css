@@ -77,13 +77,11 @@ font-size: 36px;
 	color: #FD03A6;
 } */
 
-.link_white:visited{
+.link_white{
 	color: #000000;
 }
-a:visited{
-	color: #FFFFFF ;
-}
-a:active{
+
+a{
 	color: #FFFFFF ;
 }
 a:hover{
