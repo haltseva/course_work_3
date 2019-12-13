@@ -22,10 +22,7 @@
                     {% if current_user.is_anonymous %}
                     <p><a href="{{ url_for('login') }}" >Войти|Pегестрация</a></p>
                     {% else %}
-                    <p><a class="link" href="{{ url_for('cart') }}">
-                            <img src="static/img/shoppingCart.png" id="cartIcon" width="25px" />
-                            
-                        </a>    {{ current_user.FirstName }} |<a href="{{ url_for('logout') }}">Выйти</a></p>
+                    <p></a>    {{ current_user.FirstName }} |<a href="{{ url_for('logout') }}">Выйти</a></p>
                     {% endif %}
                     
                 </div> 
@@ -39,10 +36,9 @@
                         <a href="{{ url_for('index') }}"><img src="https://nyxcosmetic.com.ua/skin/nyx/images/logo.png" width="60%"></a>
                 </div>
                 <div class="h_col2_3">
-                    <form>
-                        <p><input  type="search" name="q" placeholder="Поиск по сайту"> 
-                        <input type="image" src="static/img/search.png" salt="Поиск"></p>
-                    </form>
+                    <p><a class="link" href="{{ url_for('cart') }}">
+                            <img src="{{ url_for('static', filename='img/shoppingCart.png') }}" id="cartIcon" width="25px" /> КОРЗИНА()</p>
+
                 </div>
                 </div>
                 
@@ -74,7 +70,7 @@
                         <li class="list"><a href="{{ url_for('catalog', start='EYE') }}">ГЛАЗА</a>
                             <ul class="submenu">
                             <li><a  href="{{ url_for('catalog', start='EYE01') }}">ТЕНИ ДЛЯ ВЕК</a></li>
-                            <li><a  href="{{ url_for('catalog', start='EYE02') }}">ТУШЬ ДЛЯ РЕСТНИЦ</a></li>
+                            <li><a  href="{{ url_for('catalog', start='EYE02') }}">ТУШЬ ДЛЯ РЕСНИЦ</a></li>
                             <li><a  href="{{ url_for('catalog', start='EYE03') }}">ПОДВОДКИ ДЛЯ ГЛАЗ</a></li>
                             <li><a  href="{{ url_for('catalog', start='EYE04') }}">КАРАНДАШИ ДЛЯ ГЛАЗ</a></li>
                             <li><a  href="{{ url_for('catalog', start='EYE05') }}">СРЕДСТВА ДЛЯ БРОВЕЙ</a></li>

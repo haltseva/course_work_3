@@ -66,3 +66,10 @@ class OrdDetails(db.Model):
 
     def __repr__(self):
         return str({"ID": self.id,"Ord":self.OrdID})
+
+class Categorie(db.Model):
+
+    __table__ = db.Model.metadata.tables['ka7603.Categorie']
+
+    def __repr__(self):
+        return str({"ID": self.CategorieID,"Name":self.Name})

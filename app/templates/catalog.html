@@ -5,10 +5,24 @@
 {% block content %}
 <div class="main_block">
     <div class="right_part">
-        <p>Каталог</p>
+        <p><b>КATAЛОГ</b></p>
+        <hr>
+        {% for categor in categories %}
+        <p><a class="link_white" style="font-size: 12px;" href="{{ url_for('catalog', start = categor.CategorieID|string) }}">{{categor.Name}}</a></p>
+        {% endfor %}
+       
     </div>
     <div class="main_part">
             <div class="popular">
+                <div style="width: 100%;">
+                    <form action="" method="post" >
+                            <p>
+                                {{ form.sort.label }}
+                                {{ form.sort}}<br>
+                            </p>
+                    </form>
+                </div>
+
                     {% for product in products %}
                     
                         <div class="product">
@@ -23,5 +37,6 @@
             </div>
     </div>
 
+   
 </div>
 {% endblock %}

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField, IntegerField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField, IntegerField, SelectField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from app.models import User
 
@@ -9,11 +9,11 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('ЗАПОМНИТЬ МЕНЯ')
     submit = SubmitField('ВОЙТИ')
 
-class RegistrationForm(FlaskForm):
+class RegistrateForm(FlaskForm):
     name = StringField('ИМЯ*:', validators=[DataRequired()])
     email = StringField('EMAIL*:', validators=[DataRequired(), Email()])
     phone = StringField('ТЕЛЕФОН:')
-    birthday= DateField('ДАТА РОЖДЕНИЯ')
+    #birthday= DateField('ДАТА РОЖДЕНИЯ')
     password = PasswordField('ПАРОЛЬ*:', validators=[DataRequired()])
     submit = SubmitField('ЗАРЕГИСТРИРОВАТЬСЯ')
 
@@ -26,3 +26,5 @@ class BuyForm(FlaskForm):
     amont = IntegerField('Количество:')
     submit = SubmitField('КУПИТЬ')
 
+class SortForm(FlaskForm):
+    sort = SelectField('СОРТИВОТЬ', choices=[('1', 'от дешового к дорогому'), ('2', 'от дорогого к дешовому'), ('3', 'по названию') ])

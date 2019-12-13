@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from app import app
 from flask import render_template, flash, redirect, url_for, request
-from app.forms import LoginForm, RegistrationForm, BuyForm
+from app.forms import LoginForm, RegistrateForm, BuyForm, SortForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, db, Cart, Product, Ord, OrdDetails
 
@@ -17,21 +17,36 @@ def index():
     ''').fetchall()
     return render_template('index.html', title='Главная', products=products)
 
-@app.route('/catalog/<start>', strict_slashes=False)
+@app.route('/catalog/<start>', strict_slashes=False, methods=['GET', 'POST'] )
 def catalog(start):
+    print(start)
     if start=='0':
         products = db.session.execute(f'''
-        SELECT DISTINCT *
-        FROM Product
-    ''').fetchall()
+            SELECT DISTINCT *
+            FROM Product
+            ORDER BY NameProduct
+        ''').fetchall()
+        categories =db.session.execute(f'''
+            SELECT DISTINCT *
+            FROM Categorie
+        ''').fetchall()
 
     else:
         products = db.session.execute(f'''
             SELECT DISTINCT *
             FROM Product
             WHERE CategorieID LIKE '{start}%' 
+            ORDER BY NameProduct
         ''').fetchall()
-    return render_template('catalog.html', title='Каталог', products=products)
+        categories =db.session.execute(f'''
+            SELECT DISTINCT *
+            FROM Categorie
+            WHERE CategorieID LIKE '{start}%' 
+        ''').fetchall()
+
+    form = SortForm()
+
+    return render_template('catalog.html', title='Каталог', products=products, categories=categories, form=form)
 
 
 @app.route('/prod/<ProductID>', strict_slashes=False, methods=['GET', 'POST'] )
@@ -192,9 +207,12 @@ def logout():
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
-    form = RegistrationForm()
+    form = RegistrateForm()
+    print(form.errors)
+    print(form.validate())
     if form.validate_on_submit():
-        user = User(FirstName=form.name.data, email=form.email.data, Password=form.password.data, phone=form.phone.data, birthday=form.birthday.data)
+        print(278)
+        user = User(FirstName=form.name.data, email=form.email.data, Password=form.password.data)
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')

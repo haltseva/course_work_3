@@ -13,6 +13,7 @@
         <p>ОСНОВНАЯ ИНФОРМАЦИЯ:</p>
         <form action="" method="post">
             {{ form.hidden_tag() }}
+            {{ form.csrf_token }}
             <p>
                 {{ form.name.label }}
                 {{ form.name(size=32) }}<br>
@@ -31,10 +32,7 @@
                     {{ form.phone.label }}
                     {{ form.phone(size=12) }}<br>
             </p>
-            <p>
-                    {{ form.birthday.label }}
-                    {{ form.birthday }}<br>
-            </p>
+
             <p>
                 {{ form.password.label }}
                 {{ form.password(size=32) }}<br>
