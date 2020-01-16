@@ -1,5 +1,5 @@
 .product {
-	width: 33.3333%;
+	width: 300px;
 }
 
 .popular{
@@ -12,6 +12,10 @@
 	-webkit-justify-content: center; /* Safari */
 	justify-content: center;
 
+
+}
+.prod_pic{
+	width: 220px;
 }
 
 figure{
@@ -36,7 +40,8 @@ figcaption b{
 figcaption{
 	text-align: center;
 	font-size: 12px;
-	
+	margin: 0 15%; 
+	color: black;
 	/* margin: 0 5%; */
 }
 .right_part{
@@ -99,4 +104,12 @@ td{
 	border-collapse: collapse;
 	color: black;
 	transition: .3s linear;
+}
+
+.prod_main{
+	width: 50%;
+}
+#prod_page_pic{
+	text-align: center;
+	display: none;
 }

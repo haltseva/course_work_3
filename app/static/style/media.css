@@ -1,0 +1,147 @@
+
+@media only screen and (min-width: 970px) and (max-width: 1024px) {
+    * {
+        font-size: 16px;
+	}
+	#pink{
+		display: none;
+	}
+	
+}
+
+@media only screen and (min-width: 800px) and (max-width: 970px) {
+    * {
+        font-size: 16px;
+	}
+	.h_col2_2{
+		display: none;
+	}
+	#pink{
+		display: none;
+	}
+	#slider{
+		content: url(../img/slider1a.jpg);
+    }
+    .right_part{
+        display: none;
+    }
+	.main_part{
+        width: 100%;
+    }
+    
+	
+
+}
+@media only screen and (min-width: 580px) and (max-width: 800px) {
+    * {
+        font-size: 16px;
+	}
+	.h_col2_2{
+		display: none;
+	}
+	#pink{
+		display: none;
+	}
+	#slider{
+		content: url(../img/slider1a.jpg);
+    }
+    .right_part{
+        display: none;
+    }
+	.main_part{
+        width: 100%;
+    }
+    figure{
+        width: 200px;
+        height: 250px;
+    }
+    .prod_pic{
+        width: 150px;
+    }
+    .product{
+        width: 220px;
+    }
+    figcaption{
+        margin: 0 10%;
+    }
+    .prod_main{
+        display: none;
+    }
+	.topnav {
+        display: block;
+    }
+    .container{
+        display: none;
+    }
+    .menu_list{
+        display: none;
+    }
+    #prod_page_pic{
+        
+        display: block;
+    }
+    .prod_name{
+        font-size: 18px;
+    }
+    .foot-wrapper{
+        flex-flow: column nowrap;
+    }
+    .foot1{
+        width: 100%; 
+    }
+    .foot2{
+        width: 100%; 
+    }
+
+}
+@media only screen and (min-width: 400px) and (max-width: 580px) {
+    * {
+        font-size: 14px;
+	}
+	.h_col2_2{
+		display: none;
+	}
+	#pink{
+		display: none;
+	}
+	#slider{
+		display: none;
+    }
+    .prod_main{
+        display: none;
+    }
+    .container{
+        display: none;
+    }
+    .menu_list{
+        display: none;
+    }
+	.topnav {
+        display: block;
+    }
+    #prod_page_pic{
+        
+        display: block;
+    }
+    .prod_name{
+        font-size: 18px;
+    }
+    .right_part{
+        display: none;
+    }
+    .foot-wrapper{
+        flex-flow: column nowrap;
+    }
+    .foot1{
+        width: 100%; 
+    }
+    .foot2{
+        width: 100%; 
+    }
+    .main_cart{
+        text-align: center;
+    }
+    .div_buttom{
+        width: 100%;
+    }
+}

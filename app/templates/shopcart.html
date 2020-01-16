@@ -8,6 +8,7 @@
 	<b style="font-size: 32px; margin-bottom: 20px;" >ВАША КОРЗИНА ПУСТАЯ</b>
 	{% else %}
 	<b style="font-size: 32px; margin-bottom: 20px;" >ВАША КОРЗИНА</b>
+	<p style="text-align:right;"><a style="color: #FD03A6;" href="{{ url_for('catalog', start='0') }}">Продолжить смотреть товары</a></p>
 	<div class="list">
 		<table>
 			{% for product in products %}
@@ -22,10 +23,10 @@
 			{% endfor %}
 		</table>
 		
-		<div>
-			<b style="margin: 20px 0;">ИТОГО К ОПЛАТЕ: {{totalPrice}} грн</b>
-			<div class="div_buttom"><a style="color: white; margin: 20%;" href="{{ url_for('checkout') }}">ОФОРМИТЬ ЗАКАЗ</a></div>
+		<div style="margin: 30px 0;">
+			<b >ИТОГО К ОПЛАТЕ: {{totalPrice}} грн</b>
 		</div>
+		<div class="div_buttom"><a style="color: white; margin: 20%;" href="{{ url_for('checkout') }}">ОФОРМИТЬ ЗАКАЗ</a></div>
 	</div>
 	{% endif %}
 </div>

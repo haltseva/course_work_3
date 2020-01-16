@@ -1,92 +1,132 @@
 <html>
     <head>
+
         {% if title %}
         <title>{{ title }} - NYX</title>
         {% else %}
         <title>NYX</title>
         {% endif %}
+      
         <link href="/static/style/main.css" rel="stylesheet">
         <link href="/static/style/heder.css" rel="stylesheet">
         <link href="/static/style/footer.css" rel="stylesheet">
         <link href="/static/style/form.css" rel="stylesheet">
         <link href="/static/style/catalog.css" rel="stylesheet">
+        <link href="/static/style/media.css" rel="stylesheet">
         {% block head %}{% endblock %}
     </head>
     <body>
         <header class="black">
-        
-            <div class="container">
-                <div class="h_row">
-                <div class="h_col1_1"><p class="pink">БЕСПЛАТНАЯ ДОСТАВКА <b>ПРИ ЗАКАЗЕ ОТ 700 ГРН</b></p></div>
-                <div class="h_col1_2">
-                    {% if current_user.is_anonymous %}
-                    <p><a href="{{ url_for('login') }}" >Войти|Pегестрация</a></p>
-                    {% else %}
-                    <p></a>    {{ current_user.FirstName }} |<a href="{{ url_for('logout') }}">Выйти</a></p>
-                    {% endif %}
-                    
-                </div> 
-                </div>
-                <div class="h_row">
-                <div class="h_col2_1">
-                    <p ><b>+38 (044) 233-25-88</b> <a class="pink">   ОБРАТНЫЙ ЗВОНОК</a><br>
-                    <b>+38 (063) 233-25-88</b> <a id="tooltip" href="#">ГРАФИК РАБОТЫ<span>ПН-ПТ С 9:00 ДО 18:30</span></a></p>
-                </div>
-                <div class="h_col2_2">
-                        <a href="{{ url_for('index') }}"><img src="https://nyxcosmetic.com.ua/skin/nyx/images/logo.png" width="60%"></a>
-                </div>
-                <div class="h_col2_3">
-                    <p><a class="link" href="{{ url_for('cart') }}">
-                            <img src="{{ url_for('static', filename='img/shoppingCart.png') }}" id="cartIcon" width="25px" /> КОРЗИНА()</p>
 
-                </div>
-                </div>
-                
-            </div>
-            
-            </div>
-                <div  style="width: 100%">
-                <nav class="menu_list">
+            <div class="topnav">
+                    <a href="{{ url_for('index') }}" class="active"><img src="https://nyxcosmetic.com.ua/skin/nyx/images/logo.png"  width="100px"></a>
+                    <div id="myLinks">
+                        <a href="{{ url_for('index') }}">Популярное</a>
+                        <a href="{{ url_for('catalog', start='LIP') }}">Губы</a>
+                        <a href="{{ url_for('catalog', start='F') }}">Лицо</a>
+                        <a href="{{ url_for('catalog', start='EYE') }}">Глаза</a>
+                        <a href="#">Аксессуары и прочее</a>
+                        
+                        {% if current_user.is_anonymous %}
+                        <a href="{{ url_for('login') }}" >Войти|Pегестрация</a>
+                        {% else %}
+                        <a  href="{{ url_for('logout') }}">{{ current_user.FirstName }} |Выйти</a>
+                        {% endif %}
+                        <a class="link" href="{{ url_for('cart') }}">КОРЗИНА({{num[0]}})</a>
+                    </div>
+                    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                        <img src="../static/img/menu.png">
+                    </a>
                     
-                    <ul id="my-drop-down-menu">
-                        <li class="list"><a href="{{ url_for('index') }}">ПОПУЛЯРНОЕ</a></li>
-                        <li><a href="{{ url_for('catalog', start='LIP') }}">ГУБЫ</a>
-                            <ul class="submenu">
-                            <li><a  href="{{ url_for('catalog', start='LIP01') }}">ПОМАДЫ</a></li>
-                            <li><a  href="{{ url_for('catalog', start='LIP02') }}">БЛЕСКИ ДЛЯ ГУБ</a></li>
-                            <li><a  href="{{ url_for('catalog', start='LIP03') }}">КАРАНДАШИ ДЛЯ ГУБ</a></li>
-                            <li><a  href="{{ url_for('catalog', start='LIP04') }}">УХОД ДЛЯ ГУБ</a></li>
-                            </ul>
-                        </li>
-                        <li class="list"><a href="{{ url_for('catalog', start='F') }}">ЛИЦО</a>
-                            <ul class="submenu">
-                            <li><a  href="{{ url_for('catalog', start='F01') }}">ПУДРЫ</a></li>
-                            <li><a  href="{{ url_for('catalog', start='F02') }}">ТОНАЛЬНЫЕ ОСНОВЫ</a></li>
-                            <li><a  href="{{ url_for('catalog', start='F03') }}">РУМЯНА И БРОНЗЕРЫ</a></li>
-                            <li><a  href="{{ url_for('catalog', start='F04') }}">КОРЕКТОРЫ ДЛЯ ЛИЦА</a></li>
-                            <li><a  href="{{ url_for('catalog', start='F05') }}">ХАЙЛАЙТЕРЫ</a></li>
-                            </ul>
-                        </li>
-                        <li class="list"><a href="{{ url_for('catalog', start='EYE') }}">ГЛАЗА</a>
-                            <ul class="submenu">
-                            <li><a  href="{{ url_for('catalog', start='EYE01') }}">ТЕНИ ДЛЯ ВЕК</a></li>
-                            <li><a  href="{{ url_for('catalog', start='EYE02') }}">ТУШЬ ДЛЯ РЕСНИЦ</a></li>
-                            <li><a  href="{{ url_for('catalog', start='EYE03') }}">ПОДВОДКИ ДЛЯ ГЛАЗ</a></li>
-                            <li><a  href="{{ url_for('catalog', start='EYE04') }}">КАРАНДАШИ ДЛЯ ГЛАЗ</a></li>
-                            <li><a  href="{{ url_for('catalog', start='EYE05') }}">СРЕДСТВА ДЛЯ БРОВЕЙ</a></li>
-                            </ul>
-                        </li>
-                        <li class="list"><a href="https://www.google.com.ua/?hl=ru">АКСЕССУАРЫ И ПРОЧЕЕ</a>
-                            <ul class="submenu">
-                                <li><a  href="#">КИСТИ</a></li>
-                                <li><a  href="#">СРЕДСТВА ДЛЯ ТЕЛА</a></li>
-                                <li><a  href="#">ПОДАРОЧНЫЕ НАБОРЫ</a></li>
-    
-                            </ul>
+            </div>
+
+            <script>
+                    function myFunction() {
+                        var x = document.getElementById("myLinks");
+                        if (x.style.display === "block") {
+                        x.style.display = "none";
+                        } else {
+                        x.style.display = "block";
+                        }
+                    }
+            </script>
+                        
+                        
+            <div class="header_menu">
+                <div class="container">
+                    <div class="h_row">
+                    <div class="h_col1_1"><p class="pink_lbl" style="font-weight: initial;">БЕСПЛАТНАЯ ДОСТАВКА <b>ПРИ ЗАКАЗЕ ОТ 700 ГРН</b></p></div>
+                    <div class="h_col1_2">
+                        {% if current_user.is_anonymous %}
+                        <p><a href="{{ url_for('login') }}" >Войти|Pегестрация</a></p>
+                        {% else %}
+                        <p> {{ current_user.FirstName }} |<a href="{{ url_for('logout') }}">Выйти</a></p>
+                        {% endif %}
+                        
+                    </div> 
+                    </div>
+                    <div class="h_row">
+                    <div class="h_col2_1">
+                        <p class="pink_lbl"><span style="color: white;">+38 (044) 233-25-88</span>  ОБРАТНЫЙ ЗВОНОК</a><br>
+                        <span  style="color: white" >+38 (063) 233-25-88</span> <a id="tooltip" href="#">ГРАФИК РАБОТЫ<span>ПН-ПТ С 9:00 ДО 18:30</span></a></p>
+                    </div>
+                    <div class="h_col2_2">
+                            <a href="{{ url_for('index') }}"><img src="https://nyxcosmetic.com.ua/skin/nyx/images/logo.png" width="60%"></a>
+                    </div>
+                    <div class="h_col2_3">
+                        
+                        <p><a class="link" href="{{ url_for('cart') }}">
+                                <img src="{{ url_for('static', filename='img/shoppingCart.png') }}" id="cartIcon" width="25px" /> КОРЗИНА({{num}})</p>
+            
+                    </div>
+                    </div>
+                    
+                </div>
+            
+            
+                <div  style="width: 100%">
+                    <nav class="menu_list">
+                        
+                        <ul id="my-drop-down-menu">
+                            <li class="list"><a href="{{ url_for('index') }}">ПОПУЛЯРНОЕ</a></li>
+                            <li><a href="{{ url_for('catalog', start='LIP') }}">ГУБЫ</a>
+                                <ul class="submenu">
+                                <li><a  href="{{ url_for('catalog', start='LIP01') }}">ПОМАДЫ</a></li>
+                                <li><a  href="{{ url_for('catalog', start='LIP02') }}">БЛЕСКИ ДЛЯ ГУБ</a></li>
+                                <li><a  href="{{ url_for('catalog', start='LIP03') }}">КАРАНДАШИ ДЛЯ ГУБ</a></li>
+                                <li><a  href="{{ url_for('catalog', start='LIP04') }}">УХОД ДЛЯ ГУБ</a></li>
+                                </ul>
                             </li>
-                        <li id="pink"><a href=#>ГДЕ КУПИТЬ?</a></li>
-                    </ul>
-                </nav>
+                            <li class="list"><a href="{{ url_for('catalog', start='F') }}">ЛИЦО</a>
+                                <ul class="submenu">
+                                <li><a  href="{{ url_for('catalog', start='F01') }}">ПУДРЫ</a></li>
+                                <li><a  href="{{ url_for('catalog', start='F02') }}">ТОНАЛЬНЫЕ ОСНОВЫ</a></li>
+                                <li><a  href="{{ url_for('catalog', start='F03') }}">РУМЯНА И БРОНЗЕРЫ</a></li>
+                                <li><a  href="{{ url_for('catalog', start='F04') }}">КОРЕКТОРЫ ДЛЯ ЛИЦА</a></li>
+                                <li><a  href="{{ url_for('catalog', start='F05') }}">ХАЙЛАЙТЕРЫ</a></li>
+                                </ul>
+                            </li>
+                            <li class="list"><a href="{{ url_for('catalog', start='EYE') }}">ГЛАЗА</a>
+                                <ul class="submenu">
+                                <li><a  href="{{ url_for('catalog', start='EYE01') }}">ТЕНИ ДЛЯ ВЕК</a></li>
+                                <li><a  href="{{ url_for('catalog', start='EYE02') }}">ТУШЬ ДЛЯ РЕСНИЦ</a></li>
+                                <li><a  href="{{ url_for('catalog', start='EYE03') }}">ПОДВОДКИ ДЛЯ ГЛАЗ</a></li>
+                                <li><a  href="{{ url_for('catalog', start='EYE04') }}">КАРАНДАШИ ДЛЯ ГЛАЗ</a></li>
+                                <li><a  href="{{ url_for('catalog', start='EYE05') }}">СРЕДСТВА ДЛЯ БРОВЕЙ</a></li>
+                                </ul>
+                            </li>
+                            <li class="list"><a href="https://www.google.com.ua/?hl=ru">АКСЕССУАРЫ И ПРОЧЕЕ</a>
+                                <ul class="submenu">
+                                    <li><a  href="#">КИСТИ</a></li>
+                                    <li><a  href="#">СРЕДСТВА ДЛЯ ТЕЛА</a></li>
+                                    <li><a  href="#">ПОДАРОЧНЫЕ НАБОРЫ</a></li>
+        
+                                </ul>
+                                </li>
+                            <li id="pink"><a href=#>ГДЕ КУПИТЬ?</a></li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </header>
         

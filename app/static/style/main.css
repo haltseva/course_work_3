@@ -7,7 +7,11 @@
   body {
 	background-color: #000000;
   }
-  
+  .pink_lbl{
+	  color: #FD03A6;
+	  font-weight: initial;
+	  font-size: 16px;
+  }
   
   a{
 	  text-decoration: none;
@@ -19,6 +23,8 @@
 
   #tooltip{
 	color: #FD03A6;
+	font-size: 16px;
+	font-weight: initial;
 }
 
 #tooltip span {
@@ -115,51 +121,6 @@ section{
 
 
 
-@media only screen and (min-width: 920px) and (max-width: 1024px) {
-    * {
-        font-size: 16px;
-	}
-	#pink{
-		display: none;
-	}
-	
-}
 
-@media only screen and (min-width: 600px) and (max-width: 920px) {
-    * {
-        font-size: 16px;
-	}
-	.h_col2_2{
-		display: none;
-	}
-	#pink{
-		display: none;
-	}
-	#slider{
-		content: url(img/slider1a.jpg);
-	}
-	.popular{
-		flex-flow: column;
-	}
-	
-
-}
-@media only screen and (min-width: 400px) and (max-width: 600px) {
-    * {
-        font-size: 14px;
-	}
-	.h_col2_2{
-		display: none;
-	}
-	#pink{
-		display: none;
-	}
-	#slider{
-		content: url(img/slider1a.jpg);
-	}
-	.popular{
-		flex-flow: column;
-	}
-}
 
 

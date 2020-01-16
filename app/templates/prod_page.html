@@ -5,12 +5,13 @@
 
 {% block content %}
 <div class="main_block">
-    <div style="width: 50%;">
+    <div class="prod_main" >
             <p style="text-align: center;"><img class="prod_img" src="{{ url_for('static', filename='img/product/color/' + color_choose|string + '.png') }}" alt="помады"></p>
     </div>
-    <div style="width: 50%;">
+    <div>
         <p class="prod_name">{{product[0].NameProduct}}</p>
         <b class="pink">{{product[0].Price}} грн</b>
+        <p  id="prod_page_pic" ><img class="prod_img" src="{{ url_for('static', filename='img/product/color/' + color_choose|string + '.png') }}" alt="помады"></p>
         <div class="color_list">
         {% for color in colors %}
         {% if color.ColorID==color_choose %}

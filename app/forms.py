@@ -27,4 +27,5 @@ class BuyForm(FlaskForm):
     submit = SubmitField('КУПИТЬ')
 
 class SortForm(FlaskForm):
-    sort = SelectField('СОРТИВОТЬ', choices=[('1', 'от дешового к дорогому'), ('2', 'от дорогого к дешовому'), ('3', 'по названию') ])
+    sort = SelectField('СОРТИРОВАТЬ', choices=[ ('1', 'по названию'), ('2', 'от дешового к дорогому'), ('3', 'от дорогого к дешовому')])
+    submit = SubmitField('  OK  ')

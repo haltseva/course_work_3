@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block content %} 
     <div class="main_block">
         <div class="right_part">
-                <p><a class="link_white" href="{{ url_for('register') }}">ЗРЕГЕСТРИРОВАТЬСЯ</a></p>
+        <p><a class="link_white" style="font-size: 14px;" href="{{ url_for('register') }}">ЗАРЕГИСТРИРОВАТЬСЯ</a></p>
                 <p><a class="link_white" href="#">ПРАВИЛА ПОЛЬЗОВАТЕЛЯ</a></p>
                 
         </div>
@@ -11,18 +11,27 @@
             <b style="font-size: 32px;" >ВOЙТИ</b>
             <hr style="color: #ff5fff;clear: both;">
             <p>ВВЕДИТЕ ВАШ АДРЕС ЭЛЕКТРОННОЙ ПОЧТЫ И ПАРОЛЬ:</p>
+            <span class="pink">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </span>
             <form action="" method="post">
                 {{ form.hidden_tag() }}
                 <p>
                     {{ form.email.label }}  {{ form.email(size=32) }}<br>
                     {% for error in form.email.errors %}
-                    <span style="color:#FD03A6;">[{{ error }}]</span>
+                    <span class="pink">[{{ error }}]</span>
                     {% endfor %}
                 </p>
                 <p>
                     {{ form.password.label }}   {{ form.password(size=32) }}<br>
                     {% for error in form.password.errors %}
-                    <span style="color: #FD03A6;">[{{ error }}]</span>
+                    <span class="pink">[{{ error }}]</span>
                     {% endfor %}
                 </p>
                 <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>

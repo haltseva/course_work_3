@@ -15,11 +15,22 @@ def index():
         FROM Product
         ORDER BY RAND() LIMIT 3
     ''').fetchall()
-    return render_template('index.html', title='Главная', products=products)
+    num=0
+    
+    if current_user.is_authenticated:
+        UserID = current_user.cid
+        count=db.session.execute(f'''
+            SELECT DISTINCT COUNT(*)
+            FROM Cart
+            WHERE CustomerID='{UserID}'
+        ''').fetchall()
+        num=count[0]
+    return render_template('index.html', title='Главная', products=products, num=num)
 
 @app.route('/catalog/<start>', strict_slashes=False, methods=['GET', 'POST'] )
 def catalog(start):
-    print(start)
+    
+    num=0
     if start=='0':
         products = db.session.execute(f'''
             SELECT DISTINCT *
@@ -45,8 +56,50 @@ def catalog(start):
         ''').fetchall()
 
     form = SortForm()
+    if form.validate_on_submit():
+        sort=form.sort.data
+        print(sort)
+        if(sort=='2'):
+            if start=='0':
+                products = db.session.execute(f'''
+                    SELECT DISTINCT *
+                    FROM Product
+                    ORDER BY Price ASC
+                ''').fetchall()
+            else:
+                products = db.session.execute(f'''
+                    SELECT DISTINCT *
+                    FROM Product
+                    WHERE CategorieID LIKE '{start}%' 
+                    ORDER BY Price ASC
+                ''').fetchall()
+        if(sort=='3'):
+            if start=='0':
+                products = db.session.execute(f'''
+                    SELECT DISTINCT *
+                    FROM Product
+                    ORDER BY Price DESC
+                ''').fetchall()
+            else:
+                products = db.session.execute(f'''
+                    SELECT DISTINCT *
+                    FROM Product
+                    WHERE CategorieID LIKE '{start}%' 
+                    ORDER BY Price DESC
+                ''').fetchall() 
 
-    return render_template('catalog.html', title='Каталог', products=products, categories=categories, form=form)
+
+
+    if current_user.is_authenticated:
+        UserID = current_user.cid
+        count=db.session.execute(f'''
+            SELECT DISTINCT COUNT(*)
+            FROM Cart
+            WHERE CustomerID='{UserID}'
+        ''').fetchall()
+        num=count[0]
+
+    return render_template('catalog.html', title='Каталог', products=products, categories=categories, form=form, num=num)
 
 
 @app.route('/prod/<ProductID>', strict_slashes=False, methods=['GET', 'POST'] )
@@ -72,19 +125,32 @@ def prod(ProductID):
         FROM Color
         WHERE ProductID='{ProductID}'
     ''').fetchall()
-
+    
+    num=0
     form = BuyForm()
-
+ 
     if form.validate_on_submit():
         if current_user.is_authenticated:
             UserID = current_user.cid
             cart = Cart(CustomerID=UserID, ColorID=color_choose, Amont=form.amont.data)
             db.session.add(cart)
             db.session.commit()
+          
             return redirect(url_for('catalog', start='0'))
         else:
             return redirect(url_for('login'))
-    return render_template('prod_page.html', product=product, title='Товар', colors=colors, color1=color1, color_choose=color_choose, form=form)
+
+    if current_user.is_authenticated:
+        UserID = current_user.cid
+        count=db.session.execute(f'''
+            SELECT DISTINCT COUNT(*)
+            FROM Cart
+            WHERE CustomerID='{UserID}'
+        ''').fetchall()
+        num=count[0]
+
+
+    return render_template('prod_page.html', product=product, title='Товар', colors=colors, color1=color1, color_choose=color_choose, form=form, num=num)
 
 
 @app.route("/removeFromCart/<ID>", strict_slashes=False, methods=['GET', 'POST'])
@@ -118,22 +184,13 @@ def cart():
         WHERE o.CustomerID='{UserID}' 
         ''').fetchall() 
 
-        count = db.engine.execute(f'''
-        SELECT DISTINCT o.OrdID, o.ColorId, p.NameProduct, c.Name as Color ,o.Amont, o.CustomerID,
-        o.Amont * p.Price as Price, p.ProductID
-        FROM Cart o join Color c 
-        ON (o.ColorID = c.ColorID)
-        LEFT JOIN Product p 
-        ON (p.ProductID = c.ProductID)
-        WHERE o.CustomerID='{UserID}' 
-        ''').fetchall()  
-
         totalPrice = 0
         count=0
         for pr in products:
             totalPrice += pr[6]
             count += 1
-        return render_template('shopcart.html',title='Корзина товаров', products=products, totalPrice=totalPrice, count=count)
+
+        return render_template('shopcart.html',title='Корзина товаров', products=products, totalPrice=totalPrice, num=count, count=count)
     else:
         return redirect(url_for('login'))
 
@@ -181,8 +238,8 @@ def checkout():
         item = Cart.query.filter_by(OrdID=pr[0]).first()   
         db.session.delete(item)
         db.session.commit()
-
-    return render_template('checkout.html', title='Потверждение заказа', prod=prod, MyOrd=MyOrd)
+  
+    return render_template('checkout.html', title='Подтверждение заказа', prod=prod, MyOrd=MyOrd, num='0')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -196,7 +253,7 @@ def login():
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for('index'))
-    return render_template('login.html', title='Войти', form=form)
+    return render_template('login.html', title='Войти', form=form, num='0')
 
 @app.route('/logout')
 def logout():
@@ -208,16 +265,13 @@ def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = RegistrateForm()
-    print(form.errors)
-    print(form.validate())
     if form.validate_on_submit():
-        print(278)
         user = User(FirstName=form.name.data, email=form.email.data, Password=form.password.data)
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
-    return render_template('register.html', title='Регистрация', form=form)
+    return render_template('register.html', title='Регистрация', form=form, num='0')
 
 
 

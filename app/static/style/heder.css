@@ -8,10 +8,11 @@ header {
 .container {
 display: flex;
 flex-flow: row wrap;
+width: 100%;
 }
 
 .h_row {
-padding: 0 10%;
+margin: 0 10%;
 width: 100%;
 display: -webkit-flex;
 display: flex;
@@ -76,8 +77,7 @@ display: inline-block;
 font-size: 12px;
 text-align: left;
 padding: 15px;
-
-
+text-align: center;
 position: relative;
 }
 
@@ -88,14 +88,14 @@ transition:color .15s;
 position: absolute;
 }
 .submenu{
-width: 300px;
-
+width: 200px;
+text-align: left;
 
 background: white;
 border-radius: 5px;
 
 color: #000000;
-transform: translate(-30%, 10px);
+transform: translate(-20%, 10px);
 transition: 4s;
 }
 .submenu li a{
@@ -117,3 +117,45 @@ color: black;
   color: #FD03A6
 }
 
+
+
+
+.topnav {
+  display: none;
+  overflow: hidden;
+  width: 100%;
+  background-color: black;
+  position: relative;
+}
+
+.topnav #myLinks {
+  display: none;
+}
+
+.topnav a {
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  display: block;
+}
+
+.topnav a.icon {
+  background: black;
+  display: block;
+  position: absolute;
+  text-align: right;
+  right: 0;
+  top: 0;
+}
+
+.topnav a:hover {
+  
+  color: #FD03A6;
+}
+
+.active {
+  
+  background-color: black;
+  color: white;
+}

@@ -16,23 +16,28 @@
             <div class="popular">
                 <div style="width: 100%;">
                     <form action="" method="post" >
+                            {{ form.hidden_tag() }}
                             <p>
-                                {{ form.sort.label }}
-                                {{ form.sort}}<br>
+                                {{ form.sort.label }}  
+                                {{ form.sort}}
+                                {{ form.submit() }}
                             </p>
+                           
                     </form>
                 </div>
 
                     {% for product in products %}
-                    
-                        <div class="product">
-                            <a class="link_white" href="{{ url_for('prod', ProductID = product.ProductID|string) }}">
-                            <figure>
-                                <p><img src="{{ url_for('static', filename='img/product/' + product.ProductID|string + '.png') }}" alt="помады" width="220px"></p>
-                                <figcaption style="margin: 0 15%; color: black;"><b>{{product.NameProduct }}</b><br>{{product.Price}} грн</figcaption>
-                            </figure></a>
-                        </div>
+
                         
+                            <div class="product">
+                                <a class="link_white" href="{{ url_for('prod', ProductID = product.ProductID|string) }}">
+                                <figure>
+                                    <p><img src="{{ url_for('static', filename='img/product/' + product.ProductID|string + '.png') }}" alt="помады" class="prod_pic"></p>
+                                    <figcaption ><b>{{product.NameProduct }}</b><br>{{product.Price}} грн</figcaption>
+                                </figure></a>
+                            </div>
+                        
+                         
                     {% endfor %}
             </div>
     </div>
